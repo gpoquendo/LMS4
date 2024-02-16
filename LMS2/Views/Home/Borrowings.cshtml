@@ -1,0 +1,24 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+ViewData["Title"] = "Borrowings";
+}
+
+<div>
+<h1>@ViewData["Title"]</h1>
+	
+	<ul>
+		@if (Model != null && Model.Any())
+		{
+			foreach (var borrowing in Model)
+			{
+				<li>Borrow date: @borrowing.BorrowDate | Return date: @borrowing.ReturnDate</li>
+			}
+		}
+		else
+		{
+			<p>No borrowings found.</p>
+		}
+	</ul>
+</div>
