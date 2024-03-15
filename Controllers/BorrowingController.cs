@@ -68,7 +68,7 @@ namespace LMS3.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("Borrowing/DeleteBorrowing/{id}")]
         public IActionResult DeleteBorrowing(int id)
         {

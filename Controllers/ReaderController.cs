@@ -67,7 +67,7 @@ namespace LMS3.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("Reader/DeleteReader/{id}")]
         public IActionResult DeleteReader(int id)
         {
