@@ -1,0 +1,38 @@
+@model LMS3.Models.Borrowing
+
+<h2>Borrowing Details</h2>
+
+<div>
+    <h4>Borrowing</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.BookId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.BookId)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ReaderId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ReaderId)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.BorrowDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.BorrowDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ReturnDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ReturnDate)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="UpdateBook" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

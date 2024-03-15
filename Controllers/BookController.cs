@@ -1,12 +1,13 @@
 using LMS3.Models;
+using LMS3.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
-namespace LMS2.Controllers
+namespace LMS3.Controllers
 {
     public class BookController : Controller
     {
         [HttpGet]
-        [Route("Book")]
+        [Route("/")]
         public IActionResult Index()
         {
             var books = BookRepository.GetAllBooks();

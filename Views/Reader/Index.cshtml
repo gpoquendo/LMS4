@@ -1,4 +1,4 @@
-@model List<LMS3.Models.Book>
+@model List<LMS3.Models.Reader>
 <style>
     .button-group {
         display: flex;
@@ -6,28 +6,26 @@
     }
 </style>
 
-<h2>Books List</h2>
+<h2>Readers List</h2>
 
 <table class="table">
     <thead>
         <tr>
             <th>Id</th>
-            <th>Title</th>
-            <th>Author</th>
+            <th>Name</th>
             <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var book in Model)
+        @foreach (var reader in Model)
         {
             <tr>
-                <td>@book.Id</td>
-                <td>@book.Title</td>
-                <td>@book.Author</td>
+                <td>@reader.ReaderId</td>
+                <td>@reader.Name</td>
                 <td>
                     <div class="button-group">
-                        <a asp-action="GetBook" asp-route-id="@book.Id" class="btn btn-primary">View</a>
-                        <form asp-action="DeleteBook" asp-route-id="@book.Id" method="post">
+                        <a asp-action="GetReader" asp-route-id="@reader.ReaderId" class="btn btn-primary">View</a>
+                        <form asp-action="DeleteReader" asp-route-id="@reader.ReaderId" method="post">
                             <input type="submit" value="Delete" class="btn btn-danger" />
                         </form>
                     </div>
@@ -37,4 +35,4 @@
     </tbody>
 </table>
 
-<a asp-controller="Book" asp-action="AddBook" class="btn btn-success">Add New Book</a>
+<a asp-controller="Reader" asp-action="AddReader" class="btn btn-success">Add New Reader</a>

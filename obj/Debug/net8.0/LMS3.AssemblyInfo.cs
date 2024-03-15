@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("LMS3")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+72c16c92cefb257374f7c2db88d3bc461c80aa51")]
 [assembly: System.Reflection.AssemblyProductAttribute("LMS3")]
 [assembly: System.Reflection.AssemblyTitleAttribute("LMS3")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
