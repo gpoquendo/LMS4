@@ -1,0 +1,44 @@
+@model List<LMS3.Models.Borrowing>
+<style>
+    .button-group {
+        display: flex;
+        gap: 10px;
+    }
+</style>
+
+<h2>Borrowings List</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Book Id</th>
+            <th>Reader Id</th>
+            <th>Borrow Date</th>
+            <th>Return Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var borrowing in Model)
+        {
+            <tr>
+                <td>@borrowing.Id</td>
+                <td>@borrowing.BookId</td>
+                <td>@borrowing.ReaderId</td>
+                <td>@Html.DisplayFor(modelItem => borrowing.BorrowDate)</td>
+                <td>@Html.DisplayFor(modelItem => borrowing.ReturnDate)</td>
+                <td>
+                    <div class="button-group">
+                        <a asp-action="GetBorrowing" asp-route-id="@borrowing.Id" class="btn btn-primary">View</a>
+                        <form asp-action="DeleteBorrowing" asp-route-id="@borrowing.Id" method="post">
+                            <input type="submit" value="Delete" class="btn btn-danger" />
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-controller="Borrowing" asp-action="AddBorrowing" class="btn btn-success">Add New Borrowing</a>

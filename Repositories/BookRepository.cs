@@ -1,4 +1,6 @@
-namespace LMS3.Models
+using LMS3.Models;
+
+namespace LMS3.Repositories
 {
     public class BookRepository
     {

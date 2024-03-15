@@ -1,0 +1,23 @@
+@model LMS3.Models.Borrowing
+
+<h2>Add a new borrowing</h2>
+
+<form asp-action="AddBorrowing" asp-controller="Borrowing" method="post">
+    <div class="form-group">
+        <label for="BookId">Book Id</label>
+        <input type="text" class="form-control" id="BookId" name="BookId" required />
+    </div>
+    <div class="form-group">
+        <label for="ReaderId">Reader Id</label>
+        <input type="text" class="form-control" id="ReaderId" name="ReaderId" required />
+    </div>
+    <div class="form-group">
+        <label for="BorrowDate">Borrow Date</label>
+        <input type="text" class="form-control" id="BorrowDate" name="BorrowDate" required />
+    </div>
+    <div class="form-group">
+        <label for="ReturnDate">Return Date</label>
+        <input type="text" class="form-control" id="ReturnDate" name="ReturnDate" required />
+    </div>
+    <button type="submit" class="btn btn-primary">Add Borrowing</button>
+</form>
