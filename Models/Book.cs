@@ -10,5 +10,6 @@ namespace LMS3.Models
         public string Title { get; set; }
         [Required]
         public string Author { get; set; }
+        public bool IsAvailable { get; set; }
     }
 }

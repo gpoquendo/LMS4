@@ -28,9 +28,16 @@ namespace LMS3.Repositories
 
         public static void AddBorrowing(Borrowing borrowing)
         {
+            if (!BookRepository.IsBookAvailable(borrowing.BookId))
+            {
+                throw new Exception("Book is not available for borrowing");
+            }
+
             var maxId = _borrowingList.Max(b => b.Id);
             borrowing.Id = maxId + 1;
             _borrowingList.Add(borrowing);
+
+            BookRepository.MarkBookAsBorrowed(borrowing.BookId);
         }
 
         public static void UpdateBorrowing(int id, Borrowing borrowing)
@@ -59,6 +66,8 @@ namespace LMS3.Repositories
             if (borrowing != null)
             {
                 _borrowingList.Remove(borrowing);
+
+                BookRepository.MarkBookAsReturned(borrowing.BookId);
             }
         }
     }

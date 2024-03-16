@@ -51,5 +51,29 @@ namespace LMS3.Repositories
                 _bookList.Remove(book);
             }
         }
+
+        public static bool IsBookAvailable(int bookId)
+        {
+            var book = _bookList.FirstOrDefault(b => b.Id == bookId);
+            return book != null && !book.IsAvailable;
+        }
+
+        public static void MarkBookAsBorrowed(int bookId)
+        {
+            var book = _bookList.FirstOrDefault(b => b.Id == bookId);
+            if (book != null)
+            {
+                book.IsAvailable = true;
+            }
+        }
+
+        public static void MarkBookAsReturned(int bookId)
+        {
+            var book = _bookList.FirstOrDefault(b => b.Id == bookId);
+            if (book != null)
+            {
+                book.IsAvailable = false;
+            }
+        }
     }
 }
