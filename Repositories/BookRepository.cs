@@ -6,9 +6,9 @@ namespace LMS3.Repositories
     {
         public static List<Book> _bookList = new List<Book>()
         {
-            new Book { Id = 1, Title = "The Great Gatsby", Author = "F. Scott Fitzgerald" },
-            new Book { Id = 2, Title = "To Kill a Mockingbird", Author = "Harper Lee" },
-            new Book { Id = 3, Title = "1984", Author = "George Orwell" }
+            new Book { Id = 1, Title = "The Great Gatsby", Author = "F. Scott Fitzgerald", IsAvailable = false },
+            new Book { Id = 2, Title = "To Kill a Mockingbird", Author = "Harper Lee", IsAvailable = false },
+            new Book { Id = 3, Title = "1984", Author = "George Orwell", IsAvailable = false }
         };
 
         public static List<Book> GetAllBooks()
@@ -49,6 +49,30 @@ namespace LMS3.Repositories
             if (book != null)
             {
                 _bookList.Remove(book);
+            }
+        }
+
+        public static bool IsBookAvailable(int bookId)
+        {
+            var book = _bookList.FirstOrDefault(b => b.Id == bookId);
+            return book != null && book.IsAvailable;
+        }
+
+        public static void MarkBookAsBorrowed(int bookId)
+        {
+            var book = _bookList.FirstOrDefault(b => b.Id == bookId);
+            if (book != null)
+            {
+                book.IsAvailable = false;
+            }
+        }
+
+        public static void MarkBookAsReturned(int bookId)
+        {
+            var book = _bookList.FirstOrDefault(b => b.Id == bookId);
+            if (book != null)
+            {
+                book.IsAvailable = true;
             }
         }
     }

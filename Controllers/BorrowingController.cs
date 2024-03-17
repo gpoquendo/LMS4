@@ -37,7 +37,22 @@ namespace LMS3.Controllers
         [Route("Borrowing/AddBorrowing")]
         public IActionResult AddBorrowing(Borrowing borrowing)
         {
-            BorrowingRepository.AddBorrowing(borrowing);
+            try
+            {
+                BorrowingRepository.AddBorrowing(borrowing);
+
+                var reader = ReaderRepository.GetReaderById(borrowing.ReaderId);
+                if (reader != null)
+                {
+                    reader.BorrowedBooks.Add(borrowing);
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return View(borrowing);
+            }
+
             return RedirectToAction("Index");
         }
 
@@ -64,6 +79,27 @@ namespace LMS3.Controllers
                 return NotFound();
             }
 
+            if (existingBorrowing.BookId != borrowing.BookId)
+            {
+                BookRepository.MarkBookAsReturned(existingBorrowing.BookId);
+                BookRepository.MarkBookAsBorrowed(borrowing.BookId);
+            }
+
+            if (existingBorrowing.ReaderId != borrowing.ReaderId)
+            {
+                var oldReader = ReaderRepository.GetReaderById(existingBorrowing.ReaderId);
+                if (oldReader != null)
+                {
+                    oldReader.BorrowedBooks.Remove(existingBorrowing);
+                }
+
+                var newReader = ReaderRepository.GetReaderById(borrowing.ReaderId);
+                if (newReader != null)
+                {
+                    newReader.BorrowedBooks.Add(borrowing);
+                }
+            }
+
             BorrowingRepository.UpdateBorrowing(id, borrowing);
             return RedirectToAction("Index");
         }
@@ -79,6 +115,13 @@ namespace LMS3.Controllers
             }
 
             BorrowingRepository.DeleteBorrowing(id);
+
+            var reader = ReaderRepository.GetReaderById(borrowing.ReaderId);
+            if (reader != null)
+            {
+                reader.BorrowedBooks.Remove(borrowing);
+            }
+
             return RedirectToAction("Index");
         }
     }

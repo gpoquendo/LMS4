@@ -13,6 +13,7 @@
         <tr>
             <th>Id</th>
             <th>Name</th>
+            <th>Books Borrowed by ID</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -22,6 +23,7 @@
             <tr>
                 <td>@reader.ReaderId</td>
                 <td>@reader.Name</td>
+                <td>@string.Join(", ", reader.BorrowedBooks.Select(b => b.BookId))</td>
                 <td>
                     <div class="button-group">
                         <a asp-action="GetReader" asp-route-id="@reader.ReaderId" class="btn btn-primary">View</a>
