@@ -1,6 +1,12 @@
 @model LMS3.Models.Borrowing
 
-<h2>Add a new borrowing</h2>
+@{
+    ViewData["Title"] = "Add Borrowing";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
 <form asp-action="AddBorrowing" asp-controller="Borrowing" method="post">
     <div class="form-group">
