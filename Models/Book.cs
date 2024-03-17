@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace LMS3.Models
@@ -10,6 +11,7 @@ namespace LMS3.Models
         public string Title { get; set; }
         [Required]
         public string Author { get; set; }
-        public bool IsAvailable { get; set; }
+        [DisplayName("Availability")]
+        public bool IsAvailable { get; set; } = true;
     }
 }

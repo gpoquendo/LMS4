@@ -14,6 +14,7 @@
             <th>Id</th>
             <th>Title</th>
             <th>Author</th>
+            <th>Available</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -24,6 +25,7 @@
                 <td>@book.Id</td>
                 <td>@book.Title</td>
                 <td>@book.Author</td>
+                <td>@book.IsAvailable</td>
                 <td>
                     <div class="button-group">
                         <a asp-action="GetBook" asp-route-id="@book.Id" class="btn btn-primary">View</a>

@@ -60,6 +60,11 @@ namespace LMS3.Repositories
             }
         }
 
+        public static List<Borrowing> GetBorrowingsByReaderId(int readerId)
+        {
+            return _borrowingList.Where(b => b.ReaderId == readerId).ToList();
+        }
+
         public static void DeleteBorrowing(int id)
         {
             var borrowing = _borrowingList.FirstOrDefault(b => b.Id == id);

@@ -6,9 +6,9 @@ namespace LMS3.Repositories
     {
         public static List<Reader> _readerList = new List<Reader>()
         {
-            new Reader { ReaderId = 1, Name = "John Doe" },
-            new Reader { ReaderId = 2, Name = "Jane Doe" },
-            new Reader { ReaderId = 3, Name = "Alice" }
+            new Reader { ReaderId = 1, Name = "John Doe", BorrowedBooks = new List<Borrowing>() },
+            new Reader { ReaderId = 2, Name = "Jane Doe", BorrowedBooks = new List<Borrowing>() },
+            new Reader { ReaderId = 3, Name = "Alice", BorrowedBooks = new List<Borrowing>() }
         };
 
         public static List<Reader> GetAllReaders()
@@ -30,6 +30,7 @@ namespace LMS3.Repositories
         {
             var maxId = _readerList.Max(r => r.ReaderId);
             reader.ReaderId = maxId + 1;
+            reader.BorrowedBooks = new List<Borrowing>();
             _readerList.Add(reader);
         }
 
@@ -49,6 +50,11 @@ namespace LMS3.Repositories
             {
                 _readerList.Remove(reader);
             }
+        }
+
+        public static List<Borrowing> GetBorrowedBooksByReaderId(int readerId)
+        {
+            return BorrowingRepository.GetBorrowingsByReaderId(readerId);
         }
     }
 }

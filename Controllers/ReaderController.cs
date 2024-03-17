@@ -11,6 +11,11 @@ namespace LMS3.Controllers
         public IActionResult Index()
         {
             var readers = ReaderRepository.GetAllReaders();
+            foreach (var reader in readers)
+            {
+                reader.BorrowedBooks = ReaderRepository.GetBorrowedBooksByReaderId(reader.ReaderId);
+            }
+
             return View(readers);
         }
 
@@ -23,6 +28,8 @@ namespace LMS3.Controllers
             {
                 return NotFound();
             }
+            reader.BorrowedBooks = ReaderRepository.GetBorrowedBooksByReaderId(id);
+
             return View(reader);
         }
 
