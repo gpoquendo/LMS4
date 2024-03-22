@@ -8,5 +8,6 @@ namespace LMS2.Models
         public int ReaderId { get; set; }
         [Required]
         public string Name { get; set; }
+        public ICollection<Borrowing> Borrowings { get; set; } = new List<Borrowing>();
     }
 }
