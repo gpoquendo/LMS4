@@ -1,0 +1,25 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model LMS2.Models.Book
+
+@{
+    ViewData["Title"] = "Update Book";
+}
+
+<div class="container">
+    <h1>@ViewData["Title"]</h1>
+
+    <form method="post" action="/Book/Update/@Model.BookId">
+        <div class="form-group">
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" value="@Model.Title" required class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="author">Author:</label>
+            <input type="text" id="author" name="author" value="@Model.Author" required class="form-control" />
+        </div>
+        <br />
+        <button type="submit" class="btn btn-primary">Update Book</button>
+    </form>
+</div>

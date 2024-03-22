@@ -4,23 +4,43 @@
 @model IEnumerable<LMS2.Models.Book>
 
 @{
-ViewData["Title"] = "Books";
+	ViewData["Title"] = "Books";
 }
 
-<div>
-<h1>@ViewData["Title"] available for checkout.</h1>
-	
-	<ul>
-		@if (Model != null && Model.Any())
-		{
-			foreach (var book in Model)
-			{
-				<li>@book.Title by @book.Author</li>
-			}
-		}
-		else
-		{
-			<p>No books found.</p>
-		}
-	</ul>
+<div class="container">
+	<h1 class="my-4">@ViewData["Title"] inventory</h1>
+	@if (Model != null && Model.Any())
+	{
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Title</th>
+					<th>Author</th>
+					<th>Availability</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var book in Model)
+				{
+					<tr>
+						<td>@book.Title</td>
+						<td>@book.Author</td>
+						<td>@(book.IsAvailable ? "Available" : "Checked Out")</td>
+						<td>
+							<a href="/Book/Update/@book.BookId" class="btn btn-primary">Update</a>
+							<form method="post" action="/Book/Delete/@book.BookId" style="display:inline;">
+								<button type="submit" class="btn btn-danger">Delete</button>
+							</form>
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	}
+	else
+	{
+		<content>No books found.</content>
+	}
+	<a href="/Book/Add" class="btn btn-primary">Add new book</a>
 </div>
