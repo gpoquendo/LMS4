@@ -1,6 +1,7 @@
 ﻿using LMS2.Data;
 using LMS2.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace LMS2.Controllers
 {
@@ -17,8 +18,16 @@ namespace LMS2.Controllers
         [HttpGet("/Book")]
         public IActionResult GetAllBooks()
         {
-            var books = _context.Books.ToList();
-            return View("Books", books);
+			var books = _context.Books
+        		.Include(b => b.Borrowing)
+        		.ToList();
+
+			foreach (var book in books)
+			{
+				book.IsAvailable = book.Borrowing == null || book.Borrowing.ReturnDate <= DateTime.Now;
+			}
+
+			return View("Books", books);
         }
 
         [HttpGet("/Book/{id}")]
@@ -41,8 +50,10 @@ namespace LMS2.Controllers
         [HttpPost("/Book/Add")]
         public IActionResult AddBook([Bind("Title,Author")] Book book)
         {
+            book.IsAvailable = true;
             _context.Books.Add(book);
             _context.SaveChanges();
+            UpdateBookAvailability();
             return RedirectToAction(nameof(GetAllBooks));
         }
 
@@ -72,7 +83,7 @@ namespace LMS2.Controllers
             return RedirectToAction(nameof(GetAllBooks));
         }
 
-        [HttpPost("/Book/Delete/{id}")]
+		[HttpPost("/Book/Delete/{id}")]
         public IActionResult DeleteBook(int id)
         {
             var book = _context.Books.Find(id);
@@ -82,7 +93,21 @@ namespace LMS2.Controllers
             }
             _context.Books.Remove(book);
             _context.SaveChanges();
+            UpdateBookAvailability();
 			return RedirectToAction(nameof(GetAllBooks));
 		}
-    }
+
+		public void UpdateBookAvailability()
+		{
+			var books = _context.Books.Include(b => b.Borrowing).ToList();
+
+			foreach (var book in books)
+			{
+				book.IsAvailable = book.Borrowing == null || book.Borrowing.ReturnDate <= DateTime.Now;
+			}
+
+			_context.SaveChanges();
+		}
+
+	}
 }

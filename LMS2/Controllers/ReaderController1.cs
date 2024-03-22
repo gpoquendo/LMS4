@@ -17,17 +17,20 @@ namespace LMS2.Controllers
         [HttpGet("Reader")]
         public IActionResult Index()
         {
-            var readers = _context.Readers.ToList();
-            return View("Readers", readers);
-        }
+			var readers = _context.Readers
+				.Include(r => r.Borrowings)
+				.ThenInclude(b => b.Book)
+				.ToList();
+			return View("Readers", readers);
+		}
 
         [HttpGet("Reader/{id}")]
         public IActionResult GetReader(int id)
         {
             var readerWithBorrowings = _context.Readers
-        .Include(r => r.Borrowings)
-        .ThenInclude(b => b.Book)
-        .FirstOrDefault(r => r.ReaderId == id);
+		        .Include(r => r.Borrowings)
+		        .ThenInclude(b => b.Book)
+		        .FirstOrDefault(r => r.ReaderId == id);
 
             if (readerWithBorrowings == null)
             {

@@ -1,0 +1,44 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model LMS2.Models.Borrowing
+
+@{
+    ViewData["Title"] = "Add Borrowing";
+}
+
+<div class="container">
+	<h1>@ViewData["Title"]</h1>
+
+	<form method="post" action="/Borrowing/Add">
+		<div class="form-group>
+			<label for="reader">Reader:</label>
+			<select id="reader" name="readerId" required class="form-control">
+				<option value="">Select a reader</option>
+				@foreach (var reader in ViewBag.Readers)
+				{
+					<option value="@reader.ReaderId">@reader.Name</option>
+				}
+			</select>
+		</div>
+		<div class="form-group>
+			<label for="book">Book:</label>
+			<select id="book" name="bookId" required class="form-control">
+				<option value="">Select a book</option>
+				@foreach (var book in ViewBag.Books)
+				{
+					<option value="@book.BookId">@book.Title</option>
+				}
+			</select>
+		</div>
+		<div class="form-group>
+			<label for="borrowDate">Borrow Date:</label>
+			<input type="date" id="borrowDate" name="borrowDate" required class="form-control" />
+		</div>
+		<div class="form-group>
+			<label for="returnDate">Return Date:</label>
+			<input type="date" id="returnDate" name="returnDate" required class="form-control" />
+		</div>
+		<br />
+		<button type="submit" class="btn btn-primary">Add Borrowing</button>
+	</form>

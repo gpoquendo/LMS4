@@ -1,24 +1,49 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
+@model IEnumerable<LMS2.Models.Borrowing>
+
 @{
-ViewData["Title"] = "Borrowings";
+	ViewData["Title"] = "Borrowings";
 }
 
-<div>
-<h1>@ViewData["Title"]</h1>
-	
-	<ul>
-		@if (Model != null && Model.Any())
-		{
-			foreach (var borrowing in Model)
-			{
-				<li>Borrow date: @borrowing.BorrowDate | Return date: @borrowing.ReturnDate</li>
-			}
-		}
-		else
-		{
-			<p>No borrowings found.</p>
-		}
-	</ul>
+<div class="container">
+	<h1 class="my-4">@ViewData["Title"] Record</h1>
+	@if (Model != null && Model.Any())
+	{
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Reader</th>
+					<th>Book</th>
+					<th>Borrow Date</th>
+					<th>Return Date</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var borrowing in Model)
+				{
+					<tr>
+						<td>@borrowing.Reader.Name</td>
+						<td>@borrowing.Book.Title</td>
+						<td>@borrowing.BorrowDate.ToString("d")</td>
+						<td>@borrowing.ReturnDate.ToString("d")</td>
+						<td>
+							<a href="/Borrowing/Update/@borrowing.Id " class="btn btn-primary">Update</a>
+							<form method="post" action="/Borrowing/Delete/@borrowing.Id" style="display:inline;">
+								<button type="submit" class="btn btn-danger">Delete</button>
+							</form>
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	}
+	else
+	{
+		<content>No borrowings found.</content>
+		<br /><br />
+	}
+	<a href="/Borrowing/Add" class="btn btn-primary">Add new borrowing</a>
 </div>
