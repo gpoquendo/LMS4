@@ -1,0 +1,29 @@
+@model LMS3.Models.Borrowing
+<style>
+    .submit-button {
+        margin-top: 20px;
+    }
+</style>
+
+<h2>Update Borrowing</h2>
+
+<form asp-action="UpdateBorrowing" asp-controller="Borrowing" asp-route-id="@Model.Id" method="post">
+    <input type="hidden" asp-for="Id" />
+    <div class="form-group">
+        <label for="BookId">Book Id</label>
+        <input type="text" class="form-control" id="BookId" asp-for="BookId" required />
+    </div>
+    <div class="form-group">
+        <label for="ReaderId">Reader Id</label>
+        <input type="text" class="form-control" id="ReaderId" asp-for="ReaderId" required />
+    </div>
+    <div class="form-group">
+        <label for="BorrowDate">Borrow Date</label>
+        <input type="text" class="form-control" id="BorrowDate" asp-for="BorrowDate" required />
+    </div>
+    <div class="form-group">
+        <label for="ReturnDate">Return Date</label>
+        <input type="text" class="form-control" id="ReturnDate" asp-for="ReturnDate" required />
+    </div>
+    <button type="submit" class="btn btn-primary submit-button">Update Borrowing</button>
+</form>

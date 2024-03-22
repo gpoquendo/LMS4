@@ -1,0 +1,26 @@
+@model LMS3.Models.Reader
+
+<h2>Reader Details</h2>
+
+<div>
+    <h4>Reader</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.BorrowedBooks) By Id
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.BorrowedBooks)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="UpdateReader" asp-route-id="@Model.ReaderId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
