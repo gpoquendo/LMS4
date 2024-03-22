@@ -18,9 +18,9 @@ namespace LMS2.Data
 
 			// Seed data for Books
 			modelBuilder.Entity<Book>().HasData(
-				new Book { Id = 1, Title = "The Great Gatsby", Author = "F. Scott Fitzgerald" },
-				new Book { Id = 2, Title = "To Kill a Mockingbird", Author = "Harper Lee" },
-				new Book { Id = 3, Title = "1984", Author = "George Orwell" }
+				new Book { BookId = 1, Title = "The Great Gatsby", Author = "F. Scott Fitzgerald" },
+				new Book { BookId = 2, Title = "To Kill a Mockingbird", Author = "Harper Lee" },
+				new Book { BookId = 3, Title = "1984", Author = "George Orwell" }
 			);
 
 			// Seed data for Readers
