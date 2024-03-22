@@ -4,8 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LMS2.Controllers
 {
-    [ApiController]
-    [Route("[controller]")]
     public class BookController : Controller
     {
 
@@ -16,14 +14,14 @@ namespace LMS2.Controllers
             _context = context;
         }
 
-		[HttpGet]
+        [HttpGet("/Book")]
         public IActionResult GetAllBooks()
         {
             var books = _context.Books.ToList();
-            return Ok(books);
+            return View("Books", books);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("/Book/{id}")]
         public IActionResult GetBook(int id)
         {
             var book = _context.Books.Find(id);
@@ -34,16 +32,33 @@ namespace LMS2.Controllers
             return Ok(book);
         }
 
-        [HttpPost]
-        public IActionResult AddBook([FromBody] Book book)
+        [HttpGet("/Book/Add")]
+        public IActionResult AddBook()
+        {
+            return View();
+        }
+
+        [HttpPost("/Book/Add")]
+        public IActionResult AddBook([Bind("Title,Author")] Book book)
         {
             _context.Books.Add(book);
             _context.SaveChanges();
-            return CreatedAtAction(nameof(GetBook), new { id = book.Id }, book);
+            return RedirectToAction(nameof(GetAllBooks));
         }
 
-        [HttpPut("{id}")]
-        public IActionResult UpdateBook(int id, [FromBody] Book book)
+		[HttpGet("/Book/Update/{id}")]
+		public IActionResult UpdateBook(int id)
+		{
+			var book = _context.Books.Find(id);
+			if (book == null)
+			{
+				return NotFound();
+			}
+			return View(book);
+		}
+
+		[HttpPost("/Book/Update/{id}")]
+        public IActionResult UpdateBook(int id, [Bind("Title,Author")] Book book)
         {
             var existingBook = _context.Books.Find(id);
             if (existingBook == null)
@@ -54,10 +69,10 @@ namespace LMS2.Controllers
             existingBook.Author = book.Author;
             _context.SaveChanges();
 
-            return Ok(existingBook);
+            return RedirectToAction(nameof(GetAllBooks));
         }
 
-        [HttpDelete("{id}")]
+        [HttpPost("/Book/Delete/{id}")]
         public IActionResult DeleteBook(int id)
         {
             var book = _context.Books.Find(id);
@@ -67,7 +82,7 @@ namespace LMS2.Controllers
             }
             _context.Books.Remove(book);
             _context.SaveChanges();
-            return Ok($"Book with ID: {id}, removed.");
-        }
+			return RedirectToAction(nameof(GetAllBooks));
+		}
     }
 }
