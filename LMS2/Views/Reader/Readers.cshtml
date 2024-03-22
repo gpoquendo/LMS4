@@ -1,24 +1,49 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
+@model IEnumerable<LMS2.Models.Reader>
+
 @{
-ViewData["Title"] = "Borrowings";
+ViewData["Title"] = "Readers List";
 }
 
-<div>
-<h1>@ViewData["Title"]</h1>
-	
-	<ul>
-		@if (Model != null && Model.Any())
-		{
-			foreach (var reader in Model)
-			{
-				<li>@reader.Name</li>
-			}
-		}
-		else
-		{
-			<p>No readers found.</p>
-		}
-	</ul>
+<div class="container">
+    <h1 class="my-4">@ViewData["Title"]</h1>
+    @if (Model != null && Model.Any())
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Reader</th>
+                    <th>Books Borrowed</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var reader in Model)
+                {
+                    <tr>
+                        <td>@reader.Name</td>
+                        <td>
+                            @foreach (var borrowings in reader.Borrowings)
+                            {
+                                <p>@borrowings.Book.Title by @borrowings.Book.Author</p>
+                            }
+                        </td>
+                        <td>
+                            <a href="/Reader/Update/@reader.ReaderId" class="btn btn-primary">Update</a>
+                            <form method="post" action="/Reader/Delete/@reader.ReaderId" style="display:inline;">
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div>No readers found.</div>
+    }
+    <a href="/Reader/Add" class="btn btn-primary">Add new reader</a>
 </div>
