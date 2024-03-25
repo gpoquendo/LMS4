@@ -118,7 +118,7 @@ namespace LMS2.Controllers
 			return RedirectToAction(nameof(Index));
 		}
 
-		[HttpDelete("Borrowing/Delete/{id}")]
+		[HttpPost("Borrowing/Delete/{id}")]
 		public async Task<IActionResult> DeleteBorrowing(int id)
 		{
 			var borrowing = await _context.Borrowings.FindAsync(id);
